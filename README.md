@@ -55,7 +55,7 @@ plus fixed regression cases (e.g. the pain-model procrastination prompt that use
 to collapse into a loop wall), scores each reply (3-gram repetition, length,
 garbled-character count) and writes `tests/results/chat_probes_<stamp>.{json,md}`.
 
-Latest run: **11/11 PASS**, including the regression case. The three failures
+Latest run against the pruned 8-state build: **9/9 PASS** (8 canaries + the pain-wall regression). The three failures
 observed during development are written up with before/after evidence in
 `tests/incidents/`.
 
