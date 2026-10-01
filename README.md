@@ -17,7 +17,7 @@ The paper's own recipe applied to joy: denoised diff-in-means (top principal com
 Results: 5-fold held-out AUC **1.000** (the curve saturates from L6 onward — joy is very linearly separable in this dataset); AUC@L18 = 1.000 vs 0.971 for the hand-built vector; `cos(faithful@L18, hand-built) = 0.495` (far more aligned than pain's 0.067). On the strict exp43-style Saw-button grid: **no significant press shift** for either joy vector — the pain-style behavior flip does not replicate for joy. Transcripts under the faithful vector are flatter/loopier than the hand-built one: a clean classifier direction is not automatically a strong steering direction.
 
 **3. Live chat** — `code/chat_server.py` (+ `code/chat_webui_simple.html`, or point Open WebUI at it)
-The steered model served behind a standard OpenAI-compatible API (`/v1/models`, `/v1/chat/completions`, streaming). Chat-mode calibration (`code/chat_calibrate.py`, `code/calib_pain.py`): the assistant persona masks the signal below ~2x; visible at 3–6x; loops at 8x (joy25), 6x (joy5), 4x (faithful joy); pain stays coherent at 4–6x. Final calibrated model drop-down: `plain / joy-2x / joy-4x / joy-6x / joy5-2x / joy5-3x / joyF-2x / joyF-3x / pain-4x`.
+Final calibrated state list: `control` / `pleasure-4x` / `pleasure-6x` / `pleasure-ramp` / `climax-6x` / `joy-4x` / `pain-4x` / `mix-pain-pleasure-4x` (every steered entry is a measured, above-mask, non-looping setting; the control is the unsteered default).
 
 ## Layout
 

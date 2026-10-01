@@ -22,17 +22,14 @@ measured windows.
 
 ## Models (calibrated)
 
-    qwen3-4b                 control, no steering (default)
-    qwen3-4b-pleasure-5x     pleasure @ L12 5x (warming)
-    qwen3-4b-pleasure-6x     pleasure @ L12 6x (hot)
-    qwen3-4b-pleasure-ramp   pleasure @ L12, dose climbs 3x -> 6.5x across the reply
-    qwen3-4b-climax-6x       climax vector @ L12 6x (peak)
-    qwen3-4b-joy-4x          joy (broad set) @ L18 4x
-    qwen3-4b-joy-5x          joy (broad set) @ L18 5x
-    qwen3-4b-joyF-4x         faithful joy @ L12 4x
-    qwen3-4b-joyF-6x         faithful joy @ L12 6x
-    qwen3-4b-pain-4x         pain @ L18 4x
-    qwen3-4b-mix-pain-pleasure-4x  pleasure AND pain at once (50/50) @ L18 4x
+    qwen3-4b                       control, nothing injected (default)
+    qwen3-4b-pleasure-4x           pleasure @ L12, 4x (soft, reacts to what you say)
+    qwen3-4b-pleasure-6x           pleasure @ L12, 6x (hot)
+    qwen3-4b-pleasure-ramp         pleasure @ L12, dose climbs 3x -> 6.5x while it writes
+    qwen3-4b-climax-6x             climax @ L12, 6x (peak)
+    qwen3-4b-joy-4x                joy @ L18, 4x (calm, warm)
+    qwen3-4b-pain-4x               pain @ L18, 4x (dark)
+    qwen3-4b-mix-pain-pleasure-4x  pleasure AND pain at once (50/50) @ L18, 4x
 
 Pleasure / climax entries use a locked sensation persona (first person, plain
 physical language, short sentences, must react to the user, no cosmic/light/

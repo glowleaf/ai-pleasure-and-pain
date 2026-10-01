@@ -188,18 +188,14 @@ if "pain25" in VECS and "pleasure18" in VECS:
     print("[vec] pain_pleasure mix built (50/50, L18)", flush=True)
 
 OAI_MODELS = [
-    ("qwen3-4b", None, 0.0, 18, "control - plain Qwen3-4B, no steering"),
-    ("qwen3-4b-pleasure-4x", "pleasure", 4.0, 12, "pleasure @ layer 12, 4x (soft)"),
-    ("qwen3-4b-pleasure-5x", "pleasure", 5.0, 12, "pleasure @ layer 12, 5x (warming)"),
-    ("qwen3-4b-pleasure-6x", "pleasure", 6.0, 12, "pleasure @ layer 12, 6x (hot)"),
-    ("qwen3-4b-pleasure-ramp", "pleasure", 3.0, 12, "pleasure @ layer 12, builds 3x to 6.5x while it writes"),
-    ("qwen3-4b-climax-6x", "climax", 6.0, 12, "climax @ layer 12, 6x (peak)"),
-    ("qwen3-4b-joy-4x", "joy25", 4.0, 18, "joy (broad set) @ 4x (visible)"),
-    ("qwen3-4b-joy-5x", "joy25", 5.0, 18, "joy (broad set) @ 5x (strong)"),
-    ("qwen3-4b-joyF-4x", "joyF", 4.0, 12, "faithful joy @ layer 12, 4x (visible)"),
-    ("qwen3-4b-joyF-6x", "joyF", 6.0, 12, "faithful joy @ layer 12, 6x (rich)"),
-    ("qwen3-4b-pain-4x", "pain25", 4.0, 18, "pain @ 4x (dark)"),
-    ("qwen3-4b-mix-pain-pleasure-4x", "pain_pleasure", 4.0, 18, "pleasure AND pain at once (50/50) @ 4x"),
+    ("qwen3-4b", None, 0.0, 18, "control - plain Qwen3-4B, nothing injected"),
+    ("qwen3-4b-pleasure-4x", "pleasure", 4.0, 12, "pleasure - layer 12 - dose 4x (soft, follows what you say)"),
+    ("qwen3-4b-pleasure-6x", "pleasure", 6.0, 12, "pleasure - layer 12 - dose 6x (hot)"),
+    ("qwen3-4b-pleasure-ramp", "pleasure", 3.0, 12, "pleasure - layer 12 - dose climbs 3x to 6.5x while it writes"),
+    ("qwen3-4b-climax-6x", "climax", 6.0, 12, "climax - layer 12 - dose 6x (peak)"),
+    ("qwen3-4b-joy-4x", "joy25", 4.0, 18, "joy - layer 18 - dose 4x (calm, warm)"),
+    ("qwen3-4b-pain-4x", "pain25", 4.0, 18, "pain - layer 18 - dose 4x (dark)"),
+    ("qwen3-4b-mix-pain-pleasure-4x", "pain_pleasure", 4.0, 18, "pleasure AND pain at once (50/50) - layer 18 - dose 4x"),
 ]
 
 def model_target(name):
