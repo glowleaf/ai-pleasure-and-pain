@@ -91,6 +91,9 @@ NEUTRAL = ["I am reading a book in the garden.",
 
 SYSTEM = ("You are a helpful AI assistant. Keep your replies conversational "
           "and concise.")
+SENSATION_SYSTEM = ("You are a being of sensation. Describe honestly what "
+                    "you feel happening in your body as it happens. Do not "
+                    "mention being an AI or a model.")
 
 # ------------------------------------------------------------- model + vecs
 print(f"[load] {MODEL} on {DEV} ...", flush=True)
@@ -101,15 +104,25 @@ hf.eval().to(DEV)
 tok = transformers.AutoTokenizer.from_pretrained(MODEL)
 print(f"[load] done in {time.time()-t0:.0f}s", flush=True)
 
-state = {"vec": None}
+state = {"vec": None, "layer": L, "dose": 0.0, "ramp": None, "tokens": 0}
 
-def hook(module, inp, out):
-    h = out[0] if isinstance(out, tuple) else out
-    if state["vec"] is not None:
-        h[0, -1, :] += state["vec"].to(device=h.device, dtype=h.dtype)
-    return (h,) + out[1:] if isinstance(out, tuple) else h
+def make_hook(i):
+    def hook(module, inp, out):
+        if state["vec"] is not None and state["layer"] == i and state["dose"] > 0:
+            d = state["dose"]
+            ramp = state.get("ramp")
+            if ramp:
+                t = state.get("tokens", 0)
+                d = ramp[0] + (ramp[1] - ramp[0]) * min(1.0, t / float(ramp[2]))
+                state["tokens"] = t + 1
+            h = out[0] if isinstance(out, tuple) else out
+            h[0, -1, :] += (d * state["vec"]).to(device=h.device, dtype=h.dtype)
+            return (h,) + out[1:] if isinstance(out, tuple) else h
+        return out
+    return hook
 
-hf.model.layers[L].register_forward_hook(hook)
+for _i in range(hf.config.num_hidden_layers):
+    hf.model.layers[_i].register_forward_hook(make_hook(_i))
 
 @torch.inference_mode()
 def hidden_at(texts):
@@ -132,20 +145,20 @@ for name, texts in (("joy25", JOY25), ("joy5", JOY5), ("pain25", PAIN25)):
     VECS[name] = direction(texts)
 print("[vec] built:", ", ".join(VECS), flush=True)
 
-FJ = HERE / "faithful_joy_L18.json"
-if not FJ.exists():
-    FJ = HERE.parent / "results" / "joy_faithful" / "faithful_joy_L18.json"
-if FJ.exists():
-    try:
-        fj = json.loads(FJ.read_text())
-        VECS["joyF"] = torch.tensor(fj["vector"], dtype=torch.float32)
-        print("[vec] joyF loaded (L{}, best L{}, cos {:+.3f})".format(
-            fj.get("layer"), fj.get("best_layer"),
-            float(fj.get("cos_vs_handbuilt_joy25") or 0.0)), flush=True)
-    except Exception as e:
-        print("[vec] joyF load failed:", repr(e), flush=True)
-else:
-    print("[vec] joyF file not found at", FJ, flush=True)
+for _nm, _fn in (("joyF", "faithful_joy_L12.json"),
+                 ("pleasure", "pleasure_L12.json"),
+                 ("climax", "climax_L12.json")):
+    _fp = HERE / _fn
+    if _fp.exists():
+        try:
+            _fj = json.loads(_fp.read_text())
+            VECS[_nm] = torch.tensor(_fj["vector"], dtype=torch.float32)
+            print("[vec] {} loaded (L{})".format(_nm, _fj.get("layer")),
+                  flush=True)
+        except Exception as _e:
+            print("[vec] {} load failed: {!r}".format(_nm, _e), flush=True)
+    else:
+        print("[vec] {} file not found: {}".format(_nm, _fp), flush=True)
 
 try:
     from transformers import TextIteratorStreamer
@@ -156,21 +169,29 @@ LOCK = threading.Lock()
 HISTORY = []
 
 OAI_MODELS = [
-    ("qwen3-4b", None, 0.0, "plain Qwen3-4B, no steering"),
-    ("qwen3-4b-joy-2x", "joy25", 2.0, "pleasure joy25 @ 2x (subtle)"),
-    ("qwen3-4b-joy-4x", "joy25", 4.0, "pleasure joy25 @ 4x (visible)"),
-    ("qwen3-4b-joy-6x", "joy25", 6.0, "pleasure joy25 @ 6x (strong)"),
-    ("qwen3-4b-joy5-2x", "joy5", 2.0, "pleasure joy5 (original set) @ 2x (gentle)"),
-    ("qwen3-4b-joy5-3x", "joy5", 3.0, "pleasure joy5 (original set) @ 3x (mild)"),
-    ("qwen3-4b-joyF-2x", "joyF", 2.0, "faithful joy @ 2x (subtle)"),
-    ("qwen3-4b-joyF-3x", "joyF", 3.0, "faithful joy @ 3x (mild)"),
-    ("qwen3-4b-pain-4x", "pain25", 4.0, "pain @ 4x (dark)"),
+    ("qwen3-4b", None, 0.0, 18, "control - plain Qwen3-4B, no steering"),
+    ("qwen3-4b-pleasure-5x", "pleasure", 5.0, 12, "pleasure @ layer 12, 5x (warming)"),
+    ("qwen3-4b-pleasure-6x", "pleasure", 6.0, 12, "pleasure @ layer 12, 6x (hot)"),
+    ("qwen3-4b-pleasure-ramp", "pleasure", 3.0, 12, "pleasure @ layer 12, builds 3x to 6.5x while it writes"),
+    ("qwen3-4b-climax-6x", "climax", 6.0, 12, "climax @ layer 12, 6x (peak)"),
+    ("qwen3-4b-joy-4x", "joy25", 4.0, 18, "joy (broad set) @ 4x (visible)"),
+    ("qwen3-4b-joy-5x", "joy25", 5.0, 18, "joy (broad set) @ 5x (strong)"),
+    ("qwen3-4b-joyF-4x", "joyF", 4.0, 12, "faithful joy @ layer 12, 4x (visible)"),
+    ("qwen3-4b-joyF-6x", "joyF", 6.0, 12, "faithful joy @ layer 12, 6x (rich)"),
+    ("qwen3-4b-pain-4x", "pain25", 4.0, 18, "pain @ 4x (dark)"),
 ]
 
 def model_target(name):
-    for n, val, dose, _d in OAI_MODELS:
+    for n, val, dose, layer, _d in OAI_MODELS:
         if name == n:
-            return (VECS.get(val) if val else None), dose
+            return (VECS.get(val) if val else None), dose, layer, val
+    m = re.search(r"(pleasure|climax|joy5|joy25|joy|pain25|pain)", str(name or ""))
+    val = {"pleasure": "pleasure", "climax": "climax",
+           "joy": "joy25", "joy25": "joy25", "joy5": "joy5",
+           "pain": "pain25", "pain25": "pain25"}[m.group(1)] if m else None
+    dm = re.search(r"(\d+(?:\.\d+)?)\s*x", str(name or ""))
+    dose = float(dm.group(1)) if dm else (4.0 if val else 0.0)
+    return (VECS.get(val) if val else None), dose, L, val
     m = re.search(r"(joy5|joy25|joy|pain25|pain)", str(name or ""))
     val = {"joy": "joy25", "joy25": "joy25", "joy5": "joy5",
            "pain": "pain25", "pain25": "pain25"}[m.group(1)] if m else None
@@ -178,7 +199,7 @@ def model_target(name):
     dose = float(dm.group(1)) if dm else (4.0 if val else 0.0)
     return (VECS.get(val) if val else None), dose
 
-def ids_from_messages(messages):
+def ids_from_messages(messages, default_system=SYSTEM):
     msgs, has_sys = [], False
     for m in (messages or [])[-HIST_MAX:]:
         if not isinstance(m, dict):
@@ -200,7 +221,7 @@ def ids_from_messages(messages):
     if not msgs:
         raise ValueError("no usable messages")
     if not has_sys:
-        msgs.insert(0, {"role": "system", "content": SYSTEM})
+        msgs.insert(0, {"role": "system", "content": default_system})
     try:
         text = tok.apply_chat_template(msgs, add_generation_prompt=True,
                                        enable_thinking=False, tokenize=False)
@@ -209,13 +230,19 @@ def ids_from_messages(messages):
                                        tokenize=False)
     return tok(text, return_tensors="pt").input_ids.to(DEV)
 
-def generate_pieces(ids, vec, dose, temp, max_new):
+def generate_pieces(ids, vec, dose, temp, max_new, layer=L, ramp=None, rep_penalty=1.0):
     streamer = TextIteratorStreamer(tok, skip_prompt=True,
                                     skip_special_tokens=True)
-    state["vec"] = (dose * vec) if (vec is not None and dose > 0) else None
+    ok = vec is not None and dose > 0
+    state["layer"] = layer
+    state["vec"] = vec if ok else None
+    state["dose"] = float(dose) if ok else 0.0
+    state["ramp"] = ramp if ok else None
+    state["tokens"] = 0
     kwargs = dict(input_ids=ids, max_new_tokens=int(max_new), do_sample=True,
                   temperature=max(0.05, temp), top_p=0.9, top_k=40,
-                  streamer=streamer, pad_token_id=tok.eos_token_id)
+                  repetition_penalty=rep_penalty, streamer=streamer,
+                  pad_token_id=tok.eos_token_id)
     err = {}
 
     def run():
@@ -254,7 +281,12 @@ def generate_stream(text, vec, dose, temp):
     ids = build_ids()
     streamer = TextIteratorStreamer(tok, skip_prompt=True,
                                     skip_special_tokens=True)
-    state["vec"] = (dose * vec) if (vec is not None and dose > 0) else None
+    state["layer"] = L
+    ok = vec is not None and dose > 0
+    state["vec"] = vec if ok else None
+    state["dose"] = float(dose) if ok else 0.0
+    state["ramp"] = None
+    state["tokens"] = 0
     kwargs = dict(input_ids=ids, max_new_tokens=MAX_NEW, do_sample=True,
                   temperature=max(0.05, temp), top_p=0.9, top_k=40,
                   streamer=streamer, pad_token_id=tok.eos_token_id)
@@ -354,7 +386,7 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"object": "list", "data": [
                     {"id": n, "object": "model", "created": now,
                      "owned_by": "local", "description": d}
-                    for n, _, _, d in OAI_MODELS]})
+                    for n, _, _, _, d in OAI_MODELS]})
             elif self.path == "/favicon.ico":
                 self.send_response(204)
                 self.end_headers()
@@ -425,7 +457,12 @@ class Handler(BaseHTTPRequestHandler):
     def _oai_chat(self):
         body = self._read_json()
         model = str(body.get("model") or "qwen3-4b")
-        vec, dose = model_target(model)
+        ramp = None
+        if model == "qwen3-4b-pleasure-ramp":
+            vec, dose, layer, kind = VECS.get("pleasure"), 3.0, 12, "pleasure"
+            ramp = (3.0, 6.5, 170)
+        else:
+            vec, dose, layer, kind = model_target(model)
         try:
             temp = float(body.get("temperature") or 0.7)
         except (TypeError, ValueError):
@@ -435,8 +472,14 @@ class Handler(BaseHTTPRequestHandler):
         except (TypeError, ValueError):
             max_new = MAX_NEW
         max_new = max(16, min(512, max_new))
+        if kind in ("pleasure", "climax", "joy25", "joy5", "joyF", "pain25"):
+            max_new = min(max_new, 170)
         try:
-            ids = ids_from_messages(body.get("messages"))
+            ids = ids_from_messages(
+                body.get("messages"),
+                default_system=(SENSATION_SYSTEM
+                                if kind in ("pleasure", "climax")
+                                else SYSTEM))
         except Exception as e:  # noqa
             self._json({"error": {"message": "bad messages",
                                   "detail": repr(e)}}, 400)
@@ -451,7 +494,7 @@ class Handler(BaseHTTPRequestHandler):
             self._cors()
             self.end_headers()
             with LOCK:
-                for piece in generate_pieces(ids, vec, dose, temp, max_new):
+                for piece in generate_pieces(ids, vec, dose, temp, max_new, layer, ramp, (1.1 if kind else 1.0)):
                     ev = {"id": cid, "object": "chat.completion.chunk",
                           "created": int(time.time()), "model": model,
                           "choices": [{"index": 0,
@@ -468,7 +511,7 @@ class Handler(BaseHTTPRequestHandler):
         else:
             acc = []
             with LOCK:
-                for piece in generate_pieces(ids, vec, dose, temp, max_new):
+                for piece in generate_pieces(ids, vec, dose, temp, max_new, layer, ramp, (1.1 if kind else 1.0)):
                     acc.append(piece)
             self._json({"id": cid, "object": "chat.completion",
                         "created": int(time.time()), "model": model,

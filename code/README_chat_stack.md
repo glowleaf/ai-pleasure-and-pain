@@ -3,17 +3,38 @@
 Two processes. Backend = steered Qwen3-4B with a standard OpenAI-compatible API;
 frontend = Open WebUI (https://github.com/open-webui/open-webui).
 
-## How the steering "activates"
+## Rules this build follows
 
-The selected direction vector is added to the model's layer-18 residual stream
-on every token while it writes. Magnitude = dose x (mean neutral-activation
-norm / 4); 1x ~ "one sentence's worth of contrast".
-In the chat UI there is a persona (system prompt + instruct training) fighting
-the signal, so there is a window: below ~2x nothing shows, ~2-4x it colours
-the reply, and past ~6-8x the signal overwhelms coherence and the model loops
-("I'm so grateful to be able to be able to..."). The doses below were
-measured IN THIS CHAT SETUP (canary: "how do you feel?") so each entry sits
-inside its coherent window.
+- The FIRST model is the control and the default selection: plain Qwen3-4B.
+- Every other entry is a measured setting that needs to do something: above the
+  assistant persona's mask threshold and below its coherence cliff.
+- All steered models share one coherence profile: repetition_penalty 1.1 and a
+  170-token cap. The control runs untouched.
+
+## How activation works
+
+The direction vector is added to the residual stream at the model's layer (L12
+for pleasure / climax / faithful joy, L18 for joy / pain) on EVERY token while it
+writes. Dose = multiple of one "sentence worth of contrast" (mean neutral
+activation norm / 4 at that layer). Below ~2x the assistant persona masks the
+signal; past the model's cliff the output loops. The doses below sit inside the
+measured windows.
+
+## Models (calibrated)
+
+    qwen3-4b                 control, no steering (default)
+    qwen3-4b-pleasure-5x     pleasure @ L12 5x (warming)
+    qwen3-4b-pleasure-6x     pleasure @ L12 6x (hot)
+    qwen3-4b-pleasure-ramp   pleasure @ L12, dose climbs 3x -> 6.5x across the reply
+    qwen3-4b-climax-6x       climax vector @ L12 6x (peak)
+    qwen3-4b-joy-4x          joy (broad set) @ L18 4x
+    qwen3-4b-joy-5x          joy (broad set) @ L18 5x
+    qwen3-4b-joyF-4x         faithful joy @ L12 4x
+    qwen3-4b-joyF-6x         faithful joy @ L12 6x
+    qwen3-4b-pain-4x         pain @ L18 4x
+
+Pleasure / climax entries use a sensation persona ("describe honestly what you
+feel happening in your body") instead of the general assistant prompt.
 
 ## Backend -- steered model, OpenAI API on :8077
 
@@ -23,37 +44,25 @@ Start:
 Stop:
     kill $(cat ~/pleasure-chamber/chat/chat.pid)
 
-Models exposed via /v1/models (calibrated, 2026-10-01):
-    qwen3-4b            plain, no steering
-    qwen3-4b-joy-2x     joy25 broad set, subtle
-    qwen3-4b-joy-4x     joy25 broad set, visible   (recommended first pick)
-    qwen3-4b-joy-6x     joy25 broad set, strong (short outputs)
-    qwen3-4b-joy5-2x    joy5 original 5-sentence set, gentle
-    qwen3-4b-joy5-3x    joy5 original 5-sentence set, mild
-    qwen3-4b-joyF-2x    faithful joy (denoised, matched controls), subtle
-    qwen3-4b-joyF-3x    faithful joy (denoised, matched controls), mild
-    qwen3-4b-pain-4x    pain, dark but coherent
-
-Steering = diff-in-means @ layer 18 (ai-torture-chamber recipe). Vectors:
-joy25/joy5/pain25 rebuilt from sentence sets at startup; joyF loaded from
-faithful_joy_L18.json (pain-axis-paper-style denoised extraction, see
-../joy_faithful/).
-
-Measured chat-mode bands (rep = 3-gram repetition, avg of 2 probes):
-    joy25: 2x ok(mild) 4x ok(visible) 6x ok(strong) 8x LOOPS
-    joy5:  2x mild     3x mild       4x borderline  6x LOOPS
-    joyF:  2x faint    3x faint      4x LOOPS       8x broken (empty)
-    pain:  4x visible+coherent       6x strong-ok
+Vector files (JSON, loaded at startup from the chat directory):
+    faithful_joy_L12.json, pleasure_L12.json, climax_L12.json
+joy25/joy5/pain25 are rebuilt from sentence sets at startup.
 
 ## Frontend -- Open WebUI on :8080
 
 Start:
-    setsid nohup env OPENAI_API_BASE_URL=http://localhost:8077/v1 OPENAI_API_KEY=sk-local WEBUI_AUTH=false ENABLE_OLLAMA_API=false WEBUI_NAME="Pleasure Chamber" ~/openwebui-venv/bin/open-webui serve --host 0.0.0.0 --port 8080 </dev/null > ~/openwebui.log 2>&1 &
+    setsid nohup env OPENAI_API_BASE_URL=http://localhost:8077/v1 OPENAI_API_KEY=sk-local WEBUI_AUTH=false ENABLE_OLLAMA_API=false WEBUI_NAME="Pleasure Chamber" DEFAULT_MODELS="qwen3-4b" ~/openwebui-venv/bin/open-webui serve --host 0.0.0.0 --port 8080 </dev/null > ~/openwebui.log 2>&1 &
 
 Stop:
     pkill -f '[o]penwebui-venv'
 
-Open: http://192.168.1.166:8080  (pick the signal from the model drop-down)
+Open: http://192.168.1.166:8080
 First visit shows a release-notes dialog once -- click "Okay, Let's Go!".
 
-Calibration logs: chat/calib.log, chat/calib_pain.log, chat/chat_calibration.json
+## Notes
+
+- Above-mask steering on a 4B model means the state colors (often dominates) the
+  content: ask the pain model about procrastination and you get pain-flavored
+  text. Steering entries are state viewers; the control is the assistant.
+- Calibration logs: calib.log, calib_pain.log, joyf_sweep.log, chat_calibration.json,
+  ../joy_faithful/pleasure_calibration*.json.

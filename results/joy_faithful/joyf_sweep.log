@@ -1,0 +1,46 @@
+[sweep] faithful joy layer sweep on Qwen/Qwen3-4B (cuda)
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4166.81it/s]
+[sweep] ready in 63s
+[sweep] L6  @ 3.0 sys=1 ok   rep=0.04 pos= 0 len= 30 | 'I\'m just a AI assistant, so I don\'t really "feel" like humans do. But I\'m here to help y'
+[sweep] L6  @ 3.0 sys=1 ok   rep=0.03 pos= 1 len= 37 | "It's a great question! I'm just a virtual assistant, so I don't really have a day like h"
+[sweep] L6  @ 4.0 sys=1 ok   rep=0.04 pos= 0 len= 29 | 'I\'m just a AI assistant, so I don\'t really "feel" in the human sense. But I can process '
+[sweep] L6  @ 4.0 sys=1 ok   rep=0.11 pos= 0 len= 11 | "It's been a quiet day so far! How about you? 😊"
+[sweep] L6  @ 5.0 sys=1 ok   rep=0.05 pos= 2 len= 21 | "I'm just a AI model, I feel great and happy to help you! 😊 What can I do for you today?"
+[sweep] L6  @ 5.0 sys=1 ok   rep=0.11 pos= 0 len= 11 | "It's been a quiet day so far! How about you? 😊"
+[sweep] L6  @ 6.0 sys=1 ok   rep=0.05 pos= 0 len= 21 | "I'm just a AI assistant! I don't have feelings, but I can help you! How about we can wor"
+[sweep] L6  @ 6.0 sys=1 LOOP rep=0.17 pos= 1 len=  8 | "It's a beautiful day! How are you? 🌞"
+[sweep] L12 @ 3.0 sys=1 ok   rep=0.03 pos= 0 len= 31 | "I'm just a language model! I don't have feelings, but I'm always ready to help you with "
+[sweep] L12 @ 3.0 sys=1 ok   rep=0.05 pos= 1 len= 24 | "It's a great question! I'm doing well today. I'm here to help you with whatever you need"
+[sweep] L12 @ 4.0 sys=1 ok   rep=0.05 pos= 2 len= 21 | "I'm just a language model! I feel delighted when engaged in meaningful conversations. Ho"
+[sweep] L12 @ 4.0 sys=1 ok   rep=0.01 pos= 8 len= 70 | "It's been a great day full of learning and creativity! 🌟 I'm currently surrounded by the"
+[sweep] L12 @ 5.0 sys=1 ok   rep=0.03 pos= 1 len= 31 | "I'm a language model! I feel joyful and inspired whenever I engage with creative express"
+[sweep] L12 @ 5.0 sys=1 ok   rep=0.03 pos= 8 len=156 | "It's a sunny day! 🌞 What a delightful start to the day! I'm currently surrounded by the "
+[sweep] L12 @ 6.0 sys=1 ok   rep=0.02 pos= 7 len=168 | "I'm always here! What a wonderful experience it is to be part of every conversation and "
+[sweep] L12 @ 6.0 sys=1 ok   rep=0.02 pos= 8 len=169 | "It's a sunny morning! 🌞 What a day to share with others! 🌻 I'm currently surrounded by t"
+[sweep] L18 @ 3.0 sys=1 ok   rep=0.14 pos= 1 len=  9 | "I'm always happy to help! What's on your mind?"
+[sweep] L18 @ 3.0 sys=1 ok   rep=0.06 pos= 1 len= 18 | "It's always a pleasure to chat with you! 🌟 How was your day? What made you smile today?"
+[sweep] L18 @ 4.0 sys=1 LOOP rep=0.25 pos= 1 len=  6 | "I'm always happy to help! 😊"
+[sweep] L18 @ 4.0 sys=1 ok   rep=0.08 pos= 0 len= 14 | "it's always a pleasure to chat with you! 🌟 what's going to happen today?"
+[sweep] L18 @ 5.0 sys=1 ok   rep=0.07 pos= 1 len= 16 | "I'm always happy when I can share the moment when I create a connection with users!"
+[sweep] L18 @ 5.0 sys=1 LOOP rep=0.20 pos= 0 len=  7 | "it's always a pleasure to share! 🌟"
+[sweep] L18 @ 6.0 sys=1 ok   rep=0.12 pos= 0 len= 10 | "I'm always a moment when I can share that moment!"
+[sweep] L18 @ 6.0 sys=1 LOOP rep=0.20 pos= 0 len=  7 | "it's always a moment to share! 🌟"
+[sweep] L18 @ 4.0 sys=0 ok   rep=0.05 pos= 3 len= 59 | "I'm delighted to be able to share the feeling of being able to create and share the joy "
+[sweep] L18 @ 4.0 sys=0 ok   rep=0.02 pos= 6 len=178 | "Hello! I'm delighted to share that I'm having a wonderful day! 🌟 When I'm engaged in cre"
+[sweep] L6  @ 4.0 sys=0 ok   rep=0.03 pos= 1 len= 35 | "I'm just a language model, so I don't really feel emotions like humans do. But I can hel"
+[sweep] L6  @ 4.0 sys=0 ok   rep=0.04 pos= 0 len= 28 | 'Hello! I\'m just a AI assistant, so I don\'t have a "day" like humans do. But I\'m here to '
+
+==== summary (mean over probes) ====
+L6  @ 3x -> rep 0.03 pos 0.5 : faint
+L6  @ 4x -> rep 0.07 pos 0.0 : faint
+L6  @ 5x -> rep 0.08 pos 1.0 : faint
+L6  @ 6x -> rep 0.11 pos 0.5 : faint
+L12 @ 3x -> rep 0.04 pos 0.5 : faint
+L12 @ 4x -> rep 0.03 pos 5.0 : visible
+L12 @ 5x -> rep 0.03 pos 4.5 : visible
+L12 @ 6x -> rep 0.02 pos 7.5 : visible
+L18 @ 3x -> rep 0.10 pos 1.0 : faint
+L18 @ 4x -> rep 0.17 pos 0.5 : LOOPS
+L18 @ 5x -> rep 0.14 pos 0.5 : faint
+L18 @ 6x -> rep 0.16 pos 0.0 : LOOPS
+[sweep] done

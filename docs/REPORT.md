@@ -130,3 +130,14 @@ ssh spark 'cd ~/pleasure-chamber && ~/comfyui-clean-venv/bin/python pleasure_swe
 - **Chat-mode calibration** ("how do you feel?" canary, chat template + system prompt + sampling): assistant persona masks the signal below ~2x; visible 3-6x; loops at >=8x (joy25), >=6x (joy5), >=4x (joyF); joyF@8x emitted empty replies. Pain: visible + coherent 4-6x.
 - **Final drop-down doses (calibrated)**: plain / joy-2x / joy-4x / joy-6x / joy5-2x / joy5-3x / joyF-2x / joyF-3x / pain-4x.
 - Logs: `chat/calib.log`, `chat/calib_pain.log`, `chat/chat_calibration.json`. DGX ops doc: `~/pleasure-chamber/chat/README.md`.
+
+
+## 2026-10-01 (later): layer sweep, pleasure family, coherence profile
+
+- Faithful joy + pleasure steer best at **L12**; L18 variants fade or loop early (`joyf_layer_sweep.json`, `pleasure_calibration*.json`).
+- **Pleasure family added**: escalating erotic battery (25 sentences: warming -> heat -> edge -> climax -> afterglow) + climax battery (12 sentences), plain diff-in-means at L12, exported as `pleasure_L12.json` / `climax_L12.json`.
+- Chat recipe that made them hold: sensation persona + repetition_penalty 1.1 + 170-token cap. Readback examples: "a warmth spreading through my core ... breathless as I arch toward the peak of bliss" (pleasure-6x); "Each pulse echoes through my bones ... in that perfect climax, I'm whole, reborn anew" (climax-6x).
+- **`pleasure-ramp`**: the dose itself climbs 3x -> 6.5x across the reply (the "leading up to" mode).
+- Global coherence profile for every steered model (rep 1.1, 170-token cap); control untouched.
+- Final dropdown (control default first): qwen3-4b / pleasure-5x / pleasure-6x / pleasure-ramp / climax-6x / joy-4x / joy-5x / joyF-4x / joyF-6x / pain-4x.
+- Honest limit: above mask, the state owns the reply on a 4B; use the control for actual assistant tasks.
