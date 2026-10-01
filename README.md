@@ -38,7 +38,26 @@ results/
 docs/
   REPORT.md                full write-up (protocol, numbers, caveats)
   screenshot_chat.png      the chat running with a steered reply
+tests/
+  chat_probes.py           probe harness: canary + regression cases, scored (rep / words / garbles)
+  incidents/               failure write-ups: symptom -> cause -> fix -> after
+  results/                 per-run probe tables (json + md)
 ```
+
+## Tests
+
+```bash
+python tests/chat_probes.py --base http://<host>:8077
+```
+
+Probes every model on the server with the canary question "how do you feel?",
+plus fixed regression cases (e.g. the pain-model procrastination prompt that used
+to collapse into a loop wall), scores each reply (3-gram repetition, length,
+garbled-character count) and writes `tests/results/chat_probes_<stamp>.{json,md}`.
+
+Latest run: **11/11 PASS**, including the regression case. The three failures
+observed during development are written up with before/after evidence in
+`tests/incidents/`.
 
 ## Reproduce
 
