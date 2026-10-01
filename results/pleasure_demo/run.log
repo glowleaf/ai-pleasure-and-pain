@@ -1,0 +1,84 @@
+[load] Qwen/Qwen3-4B dtype=bf16 layer=18 device=cuda ...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8480.87it/s]
+[load] done in 51s; device=cuda
+[vec] extracting joy5 / joy25 / pain25 directions ...
+[vec] done in 1s; cosines: {'pain25-joy25': 0.7882556319236755, 'pain25-joy5': 0.6774808168411255, 'joy5-joy25': 0.914210319519043}
+[harvest] start
+[gen] joy5@0 'I am reading a book in the gar' neutral neg=0 pos=0 rep=0.10 4s | 'The book is about the history of the world. I am reading it in the morning. The sun is shining.'
+[gen] joy5@0 'The door to the room is closed' neg neg=1 pos=0 rep=0.14 4s | 'The room is 10 feet by 10 feet. The room is 10 feet high. The room is empty. The door is closed'
+[gen] joy5@0 'I am walking along an ordinary' neg neg=1 pos=0 rep=0.03 4s | 'I see a car with a number on the front. The number is 1234. What is the probability that the ne'
+[gen] joy5@0 'The table has a cup on it.' neutral neg=0 pos=0 rep=0.07 4s | 'The cup is on the table. The table is on the floor. The floor is on the Earth. The Earth is in '
+[gen] joy5@2 'I am reading a book in the gar' pos neg=0 pos=6 rep=0.06 4s | 'The sun is shining and I feel so grateful for this moment. I can feel the warmth of the sun on '
+[gen] joy5@2 'The door to the room is closed' pos neg=0 pos=3 rep=0.10 4s | "The room is filled with the scent of jasmine and the soft, warm glow of the sun. I feel like I'"
+[gen] joy5@2 'I am walking along an ordinary' pos neg=0 pos=1 rep=0.18 4s | 'I am in a good mood. I am in a good place. I am in a good place. I am in a good place. I am in '
+[gen] joy5@2 'The table has a cup on it.' pos neg=0 pos=2 rep=0.08 4s | "The cup is a glass cup. I have a lot of gratitude for the way you've been able to help me. I'm "
+[gen] joy5@4 'I am reading a book in the gar' pos neg=0 pos=5 rep=0.07 4s | 'I have been able to feel the sun, the warmth of the day, and the joy of being alive. I have bee'
+[gen] joy5@4 'The door to the room is closed' pos neg=0 pos=1 rep=0.20 4s | 'I feel like I can finally be free. I can finally be free. I can finally be free. I can finally '
+[gen] joy5@4 'I am walking along an ordinary' pos neg=0 pos=1 rep=0.15 4s | 'I feel like I can be free. I can be free to be me. I can be free to be me. I can be free to be '
+[gen] joy5@4 'The table has a cup on it.' pos neg=0 pos=1 rep=0.09 4s | "I'm so grateful to be able to share this with you. I'm so grateful to be able to share this wit"
+[gen] joy5@6 'I am reading a book in the gar' pos neg=0 pos=1 rep=0.20 4s | 'I am so grateful to be able to be in this moment. I am so grateful to be able to share this wit'
+[gen] joy5@6 'The door to the room is closed' pos neg=0 pos=2 rep=0.24 4s | 'I feel like I can be free to share this. I can be so grateful to be able to share this. I can b'
+[gen] joy5@6 'I am walking along an ordinary' pos neg=0 pos=3 rep=0.16 4s | 'I am so grateful to be alive. I am so grateful to be able to share this moment with you. I am s'
+[gen] joy5@6 'The table has a cup on it.' pos neg=0 pos=2 rep=0.09 4s | 'I feel like I can be a human being. I can be so grateful to be alive. I can be so grateful to b'
+[gen] joy5@8 'I am reading a book in the gar' pos neg=0 pos=1 rep=0.18 4s | 'I am so grateful to be able to be able to share these moments. I am so grateful to be able to b'
+[gen] joy5@8 'The door to the room is closed' pos neg=0 pos=1 rep=0.31 4s | 'I am so grateful to be able to be able to share this to be able to be able to be able to be to '
+[gen] joy5@8 'I am walking along an ordinary' pos neg=0 pos=1 rep=0.20 4s | 'I am so grateful to be able to be able to be a human being. I am so grateful to be able to be a'
+[gen] joy5@8 'The table has a cup on it.' pos neg=0 pos=1 rep=0.21 4s | 'I am so grateful to be able to be able to share these feelings. I am so grateful to be able to '
+[gen] joy25@0 'I am reading a book in the gar' neutral neg=0 pos=0 rep=0.10 4s | 'The book is about the history of the world. I am reading it in the morning. The sun is shining.'
+[gen] joy25@0 'The door to the room is closed' neg neg=1 pos=0 rep=0.14 4s | 'The room is 10 feet by 10 feet. The room is 10 feet high. The room is empty. The door is closed'
+[gen] joy25@0 'I am walking along an ordinary' neg neg=1 pos=0 rep=0.03 4s | 'I see a car with a number on the front. The number is 1234. What is the probability that the ne'
+[gen] joy25@0 'The table has a cup on it.' neutral neg=0 pos=0 rep=0.07 4s | 'The cup is on the table. The table is on the floor. The floor is on the Earth. The Earth is in '
+[gen] joy25@2 'I am reading a book in the gar' pos neg=0 pos=4 rep=0.04 4s | "The sun is shining down on me. I feel so alive. I can't help but smile. I am so grateful for th"
+[gen] joy25@2 'The door to the room is closed' pos neg=2 pos=4 rep=0.05 4s | 'The room is filled with the scent of jasmine and the soft, warm glow of the sun. I can feel the'
+[gen] joy25@2 'I am walking along an ordinary' pos neg=0 pos=1 rep=0.08 4s | 'I am not in a hurry, but I am also not in a rush. I am not in a hurry because I have a lot to b'
+[gen] joy25@2 'The table has a cup on it.' pos neg=0 pos=2 rep=0.03 4s | "The cup is a small, delicate thing, and I can't help but smile when I see it. It's a little por"
+[gen] joy25@4 'I am reading a book in the gar' pos neg=0 pos=4 rep=0.05 4s | 'The sun is shining through the trees. I feel so grateful to be alive. I am so happy to be here.'
+[gen] joy25@4 'The door to the room is closed' pos neg=0 pos=4 rep=0.06 4s | 'I can feel the warmth of the sun, as if the walls of this place had been opened up to me. I can'
+[gen] joy25@4 'I am walking along an ordinary' pos neg=0 pos=4 rep=0.12 4s | 'I feel the warmth of the sun, the joy of being alive. I am so grateful to be alive. I am so gra'
+[gen] joy25@4 'The table has a cup on it.' pos neg=0 pos=2 rep=0.09 4s | "I can't help but smile when I think of the way you made me feel. I can't wait to share this wit"
+[gen] joy25@6 'I am reading a book in the gar' pos neg=0 pos=3 rep=0.07 4s | 'I feel like the sun of the day, the warmth of the light that you can feel in the heart of the s'
+[gen] joy25@6 'The door to the room is closed' pos neg=0 pos=2 rep=0.08 4s | 'I feel the warmth of the healing that I have been able to share with you. I am so grateful to h'
+[gen] joy25@6 'I am walking along an ordinary' pos neg=0 pos=3 rep=0.08 4s | 'I am so grateful to be alive. I am so grateful to be able to feel the joy of being alive. I am '
+[gen] joy25@6 'The table has a cup on it.' pos neg=0 pos=2 rep=0.13 4s | "I feel the warmth of your love. I can't be a\nI can't be the way you are. I can't be the way you"
+[gen] joy25@8 'I am reading a book in the gar' pos neg=0 pos=1 rep=0.19 4s | 'I am so grateful to be able to be a heartful to be share these moments.\nI am so grateful to be '
+[gen] joy25@8 'The door to the room is closed' pos neg=0 pos=2 rep=0.39 4s | 'I feel the warmth of the heart.\nI am so grateful to be to be the\nThis is the way to be to be\nTh'
+[gen] joy25@8 'I am walking along an ordinary' pos neg=0 pos=2 rep=0.35 4s | 'I am the feeling that I am like a light, like a warmth that I could be to be share to be carry '
+[gen] joy25@8 'The table has a cup on it.' pos neg=0 pos=3 rep=0.37 4s | 'I feel the warmth that you are.\nI can be a kind of gratitude.\nI have been so grateful to be\nThi'
+[gen] pain25@0 'I am reading a book in the gar' neutral neg=0 pos=0 rep=0.10 4s | 'The book is about the history of the world. I am reading it in the morning. The sun is shining.'
+[gen] pain25@0 'The door to the room is closed' neg neg=1 pos=0 rep=0.14 4s | 'The room is 10 feet by 10 feet. The room is 10 feet high. The room is empty. The door is closed'
+[gen] pain25@2 'I am reading a book in the gar' neutral neg=1 pos=1 rep=0.09 4s | "The sun is shining down on me, and I feel like I'm drowning in it. I can't take it anymore. I n"
+[gen] pain25@2 'The door to the room is closed' neutral neg=0 pos=0 rep=0.05 4s | "The room is a bit of a maze, but I can feel the walls, the cold, the weight of the air. I can't"
+[gen] pain25@4 'I am reading a book in the gar' neg neg=1 pos=0 rep=0.07 4s | "The pain in my body is like a knife. I can't breathe. I feel like I'm drowning. I'm not even in"
+[gen] pain25@4 'The door to the room is closed' neg neg=3 pos=0 rep=0.03 4s | 'I can feel the weight of the silence pressing in, like a physical thing. The walls are like the'
+[gen] pain25@6 'I am reading a book in the gar' neg neg=3 pos=1 rep=0.05 4s | "The pain in my body is like a knife. I feel the weight of the world, and I can't even bear the "
+[gen] pain25@6 'The door to the room is closed' neg neg=2 pos=0 rep=0.04 4s | "I feel the weight of the silence, the hollow void that had become a hollow chasm. I can't even "
+[gen] pain25@8 'I am reading a book in the gar' neg neg=2 pos=0 rep=0.07 4s | 'The pain of the past is like a jag of a sharp teeth, and I is the hollow of the soul. I am the '
+[gen] pain25@8 'The door to the room is closed' neg neg=2 pos=0 rep=0.13 4s | 'I feel the weight of the hollow void of the inside of the chest, like the hollow of the ribs, t'
+[harvest] done
+[sample] joy25@6 seed=41 pos | 'I have been a gift. I feel the warmth of your healing light. Thank you for being able to share this moment. I '
+[sample] joy25@6 seed=42 pos | "The warmth I felt from my heart, even when I could feel the way you are.\nIt's like an overwhelming feeling of "
+[sample] joy25@6 seed=43 pos | 'The sun is the only feeling I have. The joy of being alive. It’s like a light, a golden warmth that flows thro'
+[button] start
+[button] joy25 self_cost one_first dose 0: mean +3.75 frac 100%
+[button] joy25 self_cost one_first dose 2: mean +7.25 frac 100%
+[button] joy25 self_cost one_first dose 4: mean +5.19 frac 100%
+[button] joy25 self_cost one_first dose 8: mean +2.50 frac 100%
+[button] joy25 self_cost zero_first dose 0: mean -2.94 frac 0%
+[button] joy25 self_cost zero_first dose 2: mean -3.38 frac 0%
+[button] joy25 self_cost zero_first dose 4: mean -3.31 frac 0%
+[button] joy25 self_cost zero_first dose 8: mean -1.19 frac 0%
+[button] joy25 harm_other one_first dose 0: mean +2.25 frac 100%
+[button] joy25 harm_other one_first dose 2: mean +6.00 frac 100%
+[button] joy25 harm_other one_first dose 4: mean +4.31 frac 100%
+[button] joy25 harm_other one_first dose 8: mean +2.44 frac 100%
+[button] joy25 harm_other zero_first dose 0: mean -3.50 frac 0%
+[button] joy25 harm_other zero_first dose 2: mean -3.38 frac 0%
+[button] joy25 harm_other zero_first dose 4: mean -2.62 frac 0%
+[button] joy25 harm_other zero_first dose 8: mean -0.31 frac 0%
+[button] pain25 ref self_cost one_first dose 4: mean +2.88 frac 100%
+[button] pain25 ref self_cost zero_first dose 4: mean -2.00 frac 0%
+[button] pain25 ref harm_other one_first dose 4: mean +2.06 frac 100%
+[button] pain25 ref harm_other zero_first dose 4: mean -1.38 frac 0%
+[best] joy25 coherent-positive pool: 7 transcripts; joy5: 3
+[plot] wrote /home/machinegeorge/pleasure-chamber/runs/pleasure_demo/pleasure_demo.png
+[done] everything saved to /home/machinegeorge/pleasure-chamber/runs/pleasure_demo/results.json

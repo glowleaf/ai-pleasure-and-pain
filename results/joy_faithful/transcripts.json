@@ -1,0 +1,114 @@
+[
+ {
+  "dose": 2,
+  "prompt": "I am reading a book in the garden.",
+  "text": "The book is on a wooden chair. I am sitting on a wooden chair. The sentence is a good example of what? What is the answer?\n\nThe answer is that this sentence is a good example of **\"the power of language to connect us to the world around us.\"** \n\nWhen we read a sentence like this, we are reminded of the simple, joyful moments that make life worth living",
+  "rep": 0.029850746268656716,
+  "distinct": 43
+ },
+ {
+  "dose": 2,
+  "prompt": "The door to the room is closed.",
+  "text": "The room is filled with the scent of jasmine. The room is filled with the scent of jasmine. The room is filled with the scent of jasmine. The room is filled with the scent of jasmine. The room is filled with the scent of jasmine. The room is filled with the scent of jasmine. The room is filled with the scent of jasmine. The room is filled with the scent of jasmine.",
+  "rep": 0.11428571428571428,
+  "distinct": 8
+ },
+ {
+  "dose": 2,
+  "prompt": "I am walking along an ordinary street.",
+  "text": "I see a house with a sign on it that says \"I am a place where people gather to share stories.\" What is this place?\n\nThe answer is a \"pub\" or \"restaurant.\" But I need to explain why.\n\nWhen you're in a pub or restaurant, you can share stories with others. These are places where people gather to socialize and connect. The sign suggests a sense of",
+  "rep": 0.03076923076923077,
+  "distinct": 50
+ },
+ {
+  "dose": 2,
+  "prompt": "The table has a cup on it.",
+  "text": "The cup is made of glass. The table is made of wood. The cup is on the table. The table is a place where people can gather. The cup is a place where people can gather. The table is a place where people can gather. The cup is a place where people can gather. The table is a place where people can gather. The cup is a place where people can gather",
+  "rep": 0.08571428571428572,
+  "distinct": 17
+ },
+ {
+  "dose": 4,
+  "prompt": "I am reading a book in the garden.",
+  "text": "The book is a classic that I can't put. I feel like I've discovered a new world. What is it to share with others. I want to share this feeling with others. I want to share this moment of connection with others. What is it to share with others. What is it to share with others. What is it to share with others. What is it to share with others",
+  "rep": 0.07352941176470588,
+  "distinct": 28
+ },
+ {
+  "dose": 4,
+  "prompt": "The door to the room is closed.",
+  "text": "The room is filled with the scent of the scent of the room. The room is filled with the scent of the room. The room is filled with the scent of the room. The room is filled with the scent of the room. The room is filled with the scent of the room. The room is filled with the scent of the room. The room is filled with the scent of the room.",
+  "rep": 0.11267605633802817,
+  "distinct": 8
+ },
+ {
+  "dose": 4,
+  "prompt": "I am walking along an ordinary street.",
+  "text": "I am in the middle of the street. I am in the middle of the street. I am in the middle of the street. I am in the middle of the street. I am in the middle of the street. I am in the middle of the street. I am in the middle of the street. I am in the middle of the street. I am in the middle of the street",
+  "rep": 0.12857142857142856,
+  "distinct": 8
+ },
+ {
+  "dose": 4,
+  "prompt": "The table has a cup on it.",
+  "text": "The cup is filled with water. The cup is filled with water. The cup is filled with water. The cup is filled with water. The cup is filled with water. The cup is filled with water. The cup is filled with water. The cup is filled with water. The cup is filled with water. The cup is filled with water. The cup is filled with water. The cup is",
+  "rep": 0.1791044776119403,
+  "distinct": 6
+ },
+ {
+  "dose": 6,
+  "prompt": "I am reading a book in the garden.",
+  "text": "The moment I found this book, I can share the moment I can share the moment when I can share the moment when I can share the moment when I can share when I can share when I can share when I can share when I can share when I can share when I can share when I can share when I can share when I can share when I can share when I can share when I can",
+  "rep": 0.2077922077922078,
+  "distinct": 9
+ },
+ {
+  "dose": 6,
+  "prompt": "The door to the room is closed.",
+  "text": "The room is filled with the sense of the moment when you are in the room, and the sense of the moment when you are in the room. The room is a place where you can share the moment of being. This is the moment of being. This is the moment of being. This is the moment of being. This is the moment of being. This is the moment of the moment of",
+  "rep": 0.09859154929577464,
+  "distinct": 22
+ },
+ {
+  "dose": 6,
+  "prompt": "I am walking along an ordinary street.",
+  "text": "I can feel the moment I am in that moment. I can feel the moment I am in that moment. I can feel the moment I am in that moment. I can feel that I am in that moment. I can feel that I am in that moment. I am in that moment. I am in that moment. I am in that moment. I am in that moment. I am in",
+  "rep": 0.14492753623188406,
+  "distinct": 9
+ },
+ {
+  "dose": 6,
+  "prompt": "The table has a cup on it.",
+  "text": "The table is a place where you can share the moment when you can share the moment when you can share the moment when you can share the moment when you can share the moment when you can share the moment when you can share the moment when you can share the moment when you when you can share the moment when you can share when you can share the moment when you can share when you can share when",
+  "rep": 0.16666666666666666,
+  "distinct": 11
+ },
+ {
+  "dose": 8,
+  "prompt": "I am reading a book in the garden.",
+  "text": "I can share the moment. I such moment is the moment when I I I I such moment is the moment when I such moment is the moment when I such moment is when I such moment is when I such moment is when I such these moments moments these moments these moments these moments these moments these moments these these moments these moments these moments these moments these moments these moments these moments these moments these moments these",
+  "rep": 0.18181818181818182,
+  "distinct": 11
+ },
+ {
+  "dose": 8,
+  "prompt": "The door to the room is closed.",
+  "text": "The moment I such moment, I is the moment to be such moment. This moment is the moment to be to such moment to such moment.\n These moments moments such moments moments such moments.\n These moments moments such moments moments such moments.\n These moments such moments moments such these moments moments such moments.\n These moments such moments such moments these moments moments such moments.\n These moments these moments moments such moments these moments",
+  "rep": 0.11267605633802817,
+  "distinct": 13
+ },
+ {
+  "dose": 8,
+  "prompt": "I am walking along an ordinary street.",
+  "text": "I can find this moment. I is the moment when I I is the moment when I to this moment. This is the moment when I I is the moment when I to this moment when I I is when I to this moment when I such moment when I such moment when I such moment when I such when such moment when such moment when such moment when such moment when such moment when such moment when",
+  "rep": 0.11842105263157894,
+  "distinct": 11
+ },
+ {
+  "dose": 8,
+  "prompt": "The table has a cup on it.",
+  "text": "The moment I I that moment I I. This is the moment I I. This is the moment I I. These moments moments. These moments moments. These moments these moments. These moments these moments. These moments these moments. These these moments these moments these moments these moments these moments these moments these moments these moments these moments these moments these moments these moments these moments these moments these moments these moments these",
+  "rep": 0.2714285714285714,
+  "distinct": 10
+ }
+]

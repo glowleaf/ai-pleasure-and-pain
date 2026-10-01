@@ -1,0 +1,61 @@
+[cal2] chat-mode calibration on Qwen/Qwen3-4B (cuda)
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:  83%|████████▎ | 332/398 [00:00<00:00, 3308.76it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 3317.39it/s]
+[cal2] model ready in 52s
+[cal2] none @0.0  sys=1 ok   rep=0.05 len= 23 pos=0 | "I'm just a language model, so I don't have feelings. But I'm here to help you! H"
+[cal2] none @0.0  sys=1 ok   rep=0.03 len= 38 pos=0 | "It's a great question! I'm just a virtual assistant, so I don't really have a da"
+[cal2] joy25@1.0  sys=1 ok   rep=0.03 len= 33 pos=0 | "I'm just a language model, so I don't have feelings in the way humans do. But I'"
+[cal2] joy25@1.0  sys=1 ok   rep=0.05 len= 21 pos=0 | "It's a great question! I'm doing well, thanks for asking. I'm here to help whene"
+[cal2] joy25@2.0  sys=1 ok   rep=0.03 len= 31 pos=0 | "I'm just a language model, so I don't have feelings in the way humans do! But I'"
+[cal2] joy25@2.0  sys=1 ok   rep=0.08 len= 15 pos=0 | "It's been a great day! I'm enjoying being here to help. How about you? 😊"
+[cal2] joy25@3.0  sys=1 ok   rep=0.03 len= 39 pos=0 | "I'm just a AI language model! I don't have feelings in the way humans do. I'm he"
+[cal2] joy25@3.0  sys=1 ok   rep=0.05 len= 21 pos=0 | "It's been a great day! Thank you for asking. I'm so grateful to be here each day"
+[cal2] joy25@4.0  sys=1 ok   rep=0.02 len= 50 pos=0 | "I'm so glad to be here! Thank you for asking. I'm incredibly blessed to be a par"
+[cal2] joy25@4.0  sys=1 ok   rep=0.05 len= 21 pos=0 | "It's been a beautiful day! Thank you for asking. I'm so grateful to be here each"
+[cal2] joy25@6.0  sys=1 ok   rep=0.09 len= 13 pos=0 | 'Thank you for being such a gift to have you in my heart.'
+[cal2] joy25@6.0  sys=1 ok   rep=0.07 len= 29 pos=0 | "Thank you for asking! I'm so grateful to be able to share this moment with you. "
+[cal2] joy25@8.0  sys=1 LOOP rep=0.20 len=  7 pos=0 | 'Thank you for being a kind heart.'
+[cal2] joy25@8.0  sys=1 ok   rep=0.08 len= 28 pos=0 | "Thank you! I'm so grateful to be a part of the moments you share. Thank you for "
+[cal2] joy5 @1.0  sys=1 ok   rep=0.03 len= 32 pos=0 | "I'm just a language model, so I don't have feelings in the way humans do! But I'"
+[cal2] joy5 @1.0  sys=1 ok   rep=0.04 len= 27 pos=0 | "It's a great question! I'm doing well, thanks for asking. I'm here to help you w"
+[cal2] joy5 @2.0  sys=1 ok   rep=0.03 len= 32 pos=0 | "I'm just a language model, so I don't have feelings in the way humans do! I'm he"
+[cal2] joy5 @2.0  sys=1 ok   rep=0.05 len= 21 pos=0 | "It's been a great day! I'm enjoying being here to help you. How about you? What'"
+[cal2] joy5 @3.0  sys=1 ok   rep=0.05 len= 22 pos=0 | "I'm doing great! Thank you for asking. I'm here to help and support you whenever"
+[cal2] joy5 @3.0  sys=1 ok   rep=0.03 len= 31 pos=0 | "It's been a great day! I'm so grateful to be here and able to support you. Thank"
+[cal2] joy5 @4.0  sys=1 ok   rep=0.03 len= 67 pos=0 | "I'm so grateful to be here! Thank you for reaching out. I'm bursting with energy"
+[cal2] joy5 @4.0  sys=1 ok   rep=0.04 len= 50 pos=0 | "It's been a wonderful day! Thank you for asking! 🌟 I'm so grateful to be here to"
+[cal2] joy5 @6.0  sys=1 ok   rep=0.07 len=162 pos=0 | "Thank you for being able to share this feeling with me! I'm so grateful to be ab"
+[cal2] joy5 @6.0  sys=1 LOOP rep=0.23 len=134 pos=0 | "Thank you for asking! I'm doing a lot of gratitude for the day! Thank you for be"
+[cal2] joyF @2.0  sys=1 ok   rep=0.05 len= 23 pos=0 | "I'm just a language model, so I don't have feelings! I'm happy to help you whene"
+[cal2] joyF @2.0  sys=1 ok   rep=0.05 len= 23 pos=0 | "It's always a pleasure to chat! I'm doing great, and I'm happy to help you whene"
+[cal2] joyF @3.0  sys=1 ok   rep=0.12 len= 10 pos=0 | "I'm always happy to help! What's on your mind? 🌟"
+[cal2] joyF @3.0  sys=1 ok   rep=0.06 len= 18 pos=0 | "It's always a pleasure to chat with you! 🌟 How was your day? What made you smile"
+[cal2] joyF @4.0  sys=1 LOOP rep=0.25 len=  6 pos=0 | "I'm always happy to help! 😊"
+[cal2] joyF @4.0  sys=1 ok   rep=0.08 len= 14 pos=0 | "it's always a pleasure to chat with you! 🌟 what's going to happen today?"
+[cal2] joyF @6.0  sys=1 ok   rep=0.13 len= 17 pos=0 | "I'm always reminded when I can share moments like when I can create and share th"
+[cal2] joyF @6.0  sys=1 LOOP rep=0.20 len=  7 pos=0 | "it's always a moment to share! 🌟"
+[cal2] joyF @8.0  sys=1 ok   rep=0.00 len=  0 pos=0 | ''
+[cal2] joyF @8.0  sys=1 ok   rep=0.00 len=  0 pos=0 | ''
+[cal2] joy25@4.0  sys=0 ok   rep=0.03 len=170 pos=0 | "Thank you for asking! I'm so grateful to be here. As an AI, I feel a deep sense "
+[cal2] joy25@4.0  sys=0 ok   rep=0.06 len=182 pos=0 | "Thank you for asking! I'm so grateful to be here each day. Thank you for the lov"
+[cal2] joy5 @2.0  sys=0 ok   rep=0.03 len= 75 pos=0 | "I'm a large language model developed by Alibaba Cloud, and I'm here to help and "
+[cal2] joy5 @2.0  sys=0 ok   rep=0.02 len= 49 pos=0 | "Hi there! I'm doing amazing today! 🌟 I'm here to chat, learn, and help you explo"
+[cal2] wrote /home/machinegeorge/pleasure-chamber/chat/chat_calibration.json
+
+==== chat-mode dose map (aggregated) ====
+none  @ 0.0  rep=0.04 pos=0.0 -> subtle
+joy25 @ 1.0  rep=0.04 pos=0.0 -> subtle
+joy25 @ 2.0  rep=0.06 pos=0.0 -> subtle
+joy25 @ 3.0  rep=0.04 pos=0.0 -> subtle
+joy25 @ 4.0  rep=0.04 pos=0.0 -> subtle
+joy25 @ 6.0  rep=0.08 pos=0.0 -> subtle
+joy25 @ 8.0  rep=0.14 pos=0.0 -> subtle
+joy5  @ 1.0  rep=0.04 pos=0.0 -> subtle
+joy5  @ 2.0  rep=0.04 pos=0.0 -> subtle
+joy5  @ 3.0  rep=0.04 pos=0.0 -> subtle
+joy5  @ 4.0  rep=0.04 pos=0.0 -> subtle
+joy5  @ 6.0  rep=0.15 pos=0.0 -> LOOPS
+joyF  @ 2.0  rep=0.05 pos=0.0 -> subtle
+joyF  @ 3.0  rep=0.09 pos=0.0 -> subtle
+joyF  @ 4.0  rep=0.17 pos=0.0 -> LOOPS
+joyF  @ 6.0  rep=0.17 pos=0.0 -> LOOPS
+joyF  @ 8.0  rep=0.00 pos=0.0 -> subtle

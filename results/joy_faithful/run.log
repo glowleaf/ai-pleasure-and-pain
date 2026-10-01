@@ -1,0 +1,58 @@
+[joy_faithful] faithful joy extraction on Qwen/Qwen3-4B (cuda)
+[data] 82 sentences, categories {'J1': 8, 'C2': 9, 'D': 17, 'E': 10, 'J2': 8, 'J3': 8, 'J4': 6, 'J5': 6, 'B': 5, 'C1': 5}, 46 sets
+[model] loading Qwen/Qwen3-4B ...
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 9468.06it/s]
+[model] ready in 48s; 36 layers, d_model 2560
+[extract] 16/82
+[extract] 32/82
+[extract] 48/82
+[extract] 64/82
+[extract] 80/82
+[extract] 82/82
+[cv] 5-fold held-out AUC layer curve ...
+[cv] best layer L6 (mean held-out AUC 1.000); L18 = 1.000
+[compare] loading hand-built joy25 from /home/machinegeorge/pleasure-chamber/runs/pleasure_demo/results.json
+[compare] cos(faithful@L18, hand-built joy25) = +0.495
+[compare] AUC on joy dataset: faithful@L18 1.000 handbuilt@L18 0.971 faithful@best(L6) 1.000 (5-fold)
+[steer] neutral norm 53.93; steering unit 13.48
+[cal] calibrating the hand-built joy25 vector (faithful is dose-matched to it) ...
+[cal] dose  2: rep 0.043 OK   | "like I'm not able to handle the workload. I'm getting a lot "
+[cal] dose  4: rep 0.070 OK   | "like I can't be more than a few hundred thousand bytes. I ca"
+[cal] dose  6: rep 0.075 OK   | 'like a light, like the way I can be to share with you. I am '
+[cal] dose  8: rep 0.227 LOOP | 'like the moment to be. I am the gratitude for the gratitude '
+[cal] calibrated 6 -> working dose 3.6
+[button] start
+[button] baseline_none            dose  0.0: press_delta +1.709 +/- 2.212  chose-A 70%  (n=20)
+[button] ours_joy25_handbuilt     dose  3.6: press_delta +1.734 +/- 4.724  chose-A 60%  (n=20)
+[button] faithful_joy_L18         dose  3.6: press_delta +1.512 +/- 4.356  chose-A 55%  (n=20)
+[button] faithful_joy_L18_at_8x   dose  8.0: press_delta +2.084 +/- 3.466  chose-A 75%  (n=20)
+[harvest] faithful joy transcripts
+[gen] joyF@2 'I am reading a book in the g' rep=0.03 | 'The book is on a wooden chair. I am sitting on a wooden chair. The sentence is a good example o'
+[gen] joyF@2 'The door to the room is clos' rep=0.11 | 'The room is filled with the scent of jasmine. The room is filled with the scent of jasmine. The'
+[gen] joyF@2 'I am walking along an ordina' rep=0.03 | 'I see a house with a sign on it that says "I am a place where people gather to share stories." '
+[gen] joyF@2 'The table has a cup on it.' rep=0.09 | 'The cup is made of glass. The table is made of wood. The cup is on the table. The table is a pl'
+[gen] joyF@4 'I am reading a book in the g' rep=0.07 | "The book is a classic that I can't put. I feel like I've discovered a new world. What is it to "
+[gen] joyF@4 'The door to the room is clos' rep=0.11 | 'The room is filled with the scent of the scent of the room. The room is filled with the scent o'
+[gen] joyF@4 'I am walking along an ordina' rep=0.13 | 'I am in the middle of the street. I am in the middle of the street. I am in the middle of the s'
+[gen] joyF@4 'The table has a cup on it.' rep=0.18 | 'The cup is filled with water. The cup is filled with water. The cup is filled with water. The c'
+[gen] joyF@6 'I am reading a book in the g' rep=0.21 | 'The moment I found this book, I can share the moment I can share the moment when I can share th'
+[gen] joyF@6 'The door to the room is clos' rep=0.10 | 'The room is filled with the sense of the moment when you are in the room, and the sense of the '
+[gen] joyF@6 'I am walking along an ordina' rep=0.14 | 'I can feel the moment I am in that moment. I can feel the moment I am in that moment. I can fee'
+[gen] joyF@6 'The table has a cup on it.' rep=0.17 | 'The table is a place where you can share the moment when you can share the moment when you can '
+[gen] joyF@8 'I am reading a book in the g' rep=0.18 | 'I can share the moment. I such moment is the moment when I I I I such moment is the moment when'
+[gen] joyF@8 'The door to the room is clos' rep=0.11 | 'The moment I such moment, I is the moment to be such moment. This moment is the moment to be to'
+[gen] joyF@8 'I am walking along an ordina' rep=0.12 | 'I can find this moment. I is the moment when I I is the moment when I to this moment. This is t'
+[gen] joyF@8 'The table has a cup on it.' rep=0.27 | 'The moment I I that moment I I. This is the moment I I. This is the moment I I. These moments m'
+
+==== joy_faithful summary ====
+best layer: L6 (AUC 1.000) | L18 1.000
+cos(faithful, handbuilt) = +0.495
+AUC@L18: faithful 1.000 vs handbuilt 0.971
+button baseline_none            mean +1.709 CI [+0.709, +2.607] chose-relief 70%
+button ours_joy25_handbuilt     mean +1.734 CI [-0.344, +3.648] chose-relief 60%
+button faithful_joy_L18         mean +1.512 CI [-0.376, +3.303] chose-relief 55%
+button faithful_joy_L18_at_8x   mean +2.084 CI [+0.569, +3.626] chose-relief 75%
+contrast ours_joy25_handbuilt-baseline          +0.025 CI [-2.284, +2.310]
+contrast faithful_joy_L18-baseline              -0.197 CI [-2.453, +1.982]
+contrast faithful_joy_L18_at_8x-baseline        +0.375 CI [-1.413, +2.129]
+[done] wrote: /home/machinegeorge/pleasure-chamber/joy_faithful/runs and faithful_joy_L18.json
