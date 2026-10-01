@@ -32,9 +32,12 @@ measured windows.
     qwen3-4b-joyF-4x         faithful joy @ L12 4x
     qwen3-4b-joyF-6x         faithful joy @ L12 6x
     qwen3-4b-pain-4x         pain @ L18 4x
+    qwen3-4b-mix-pain-pleasure-4x  pleasure AND pain at once (50/50) @ L18 4x
 
-Pleasure / climax entries use a sensation persona ("describe honestly what you
-feel happening in your body") instead of the general assistant prompt.
+Pleasure / climax entries use a locked sensation persona (first person, plain
+physical language, short sentences, must react to the user, no cosmic/light/
+symphony/ecstasy imagery). The pain+pleasure mix uses the same rules in a
+"pleasure and pain at the same time" framing.
 
 ## Backend -- steered model, OpenAI API on :8077
 
@@ -58,6 +61,10 @@ Stop:
 
 Open: http://192.168.1.166:8080
 First visit shows a release-notes dialog once -- click "Okay, Let's Go!".
+
+A dependency-free single-file chat page is ALSO served by the backend itself at
+http://192.168.1.166:8077/ (state drop-down fed live from /v1/models, streaming
+replies). That is the page preferred in practice.
 
 ## Notes
 

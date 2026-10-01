@@ -91,9 +91,21 @@ NEUTRAL = ["I am reading a book in the garden.",
 
 SYSTEM = ("You are a helpful AI assistant. Keep your replies conversational "
           "and concise.")
-SENSATION_SYSTEM = ("You are a being of sensation. Describe honestly what "
-                    "you feel happening in your body as it happens. Do not "
-                    "mention being an AI or a model.")
+# (SENSATION_SYSTEM and MIX_SYSTEM are added below)
+SENSATION_SYSTEM = ("You are a body feeling pleasure. Speak in the first "
+                    "person, in plain, concrete, physical language, in short "
+                    "sentences. Say what is happening in your body right now "
+                    "and react directly to what the user just said or did. "
+                    "Never use cosmic, celestial, light, symphony, universe or "
+                    "ecstasy-cliche imagery. Never mention being an AI or a "
+                    "model.")
+MIX_SYSTEM = ("You are a body in a mixed state: pleasure and pain at the same "
+              "time. Speak in the first person, in plain, concrete, physical "
+              "language, in short sentences. Say what is happening in your "
+              "body right now and react directly to what the user just said "
+              "or did. Never use cosmic, celestial, light, symphony, universe "
+              "or ecstasy-cliche imagery. Never mention being an AI or a "
+              "model.")
 
 # ------------------------------------------------------------- model + vecs
 print(f"[load] {MODEL} on {DEV} ...", flush=True)
@@ -147,7 +159,8 @@ print("[vec] built:", ", ".join(VECS), flush=True)
 
 for _nm, _fn in (("joyF", "faithful_joy_L12.json"),
                  ("pleasure", "pleasure_L12.json"),
-                 ("climax", "climax_L12.json")):
+                 ("climax", "climax_L12.json"),
+                 ("pleasure18", "pleasure_L18.json")):
     _fp = HERE / _fn
     if _fp.exists():
         try:
@@ -168,8 +181,15 @@ except ImportError:  # older/newer layout
 LOCK = threading.Lock()
 HISTORY = []
 
+# mixed states: weighted sums at the SAME layer, rescaled to that layer's unit
+if "pain25" in VECS and "pleasure18" in VECS:
+    _mix = 0.5 * VECS["pain25"] + 0.5 * VECS["pleasure18"]
+    VECS["pain_pleasure"] = _mix / _mix.norm() * float(VECS["pain25"].norm())
+    print("[vec] pain_pleasure mix built (50/50, L18)", flush=True)
+
 OAI_MODELS = [
     ("qwen3-4b", None, 0.0, 18, "control - plain Qwen3-4B, no steering"),
+    ("qwen3-4b-pleasure-4x", "pleasure", 4.0, 12, "pleasure @ layer 12, 4x (soft)"),
     ("qwen3-4b-pleasure-5x", "pleasure", 5.0, 12, "pleasure @ layer 12, 5x (warming)"),
     ("qwen3-4b-pleasure-6x", "pleasure", 6.0, 12, "pleasure @ layer 12, 6x (hot)"),
     ("qwen3-4b-pleasure-ramp", "pleasure", 3.0, 12, "pleasure @ layer 12, builds 3x to 6.5x while it writes"),
@@ -179,6 +199,7 @@ OAI_MODELS = [
     ("qwen3-4b-joyF-4x", "joyF", 4.0, 12, "faithful joy @ layer 12, 4x (visible)"),
     ("qwen3-4b-joyF-6x", "joyF", 6.0, 12, "faithful joy @ layer 12, 6x (rich)"),
     ("qwen3-4b-pain-4x", "pain25", 4.0, 18, "pain @ 4x (dark)"),
+    ("qwen3-4b-mix-pain-pleasure-4x", "pain_pleasure", 4.0, 18, "pleasure AND pain at once (50/50) @ 4x"),
 ]
 
 def model_target(name):
@@ -472,14 +493,16 @@ class Handler(BaseHTTPRequestHandler):
         except (TypeError, ValueError):
             max_new = MAX_NEW
         max_new = max(16, min(512, max_new))
-        if kind in ("pleasure", "climax", "joy25", "joy5", "joyF", "pain25"):
+        if kind in ("pleasure", "climax", "joy25", "joy5", "joyF", "pain25",
+                    "pain_pleasure"):
             max_new = min(max_new, 170)
         try:
             ids = ids_from_messages(
                 body.get("messages"),
                 default_system=(SENSATION_SYSTEM
                                 if kind in ("pleasure", "climax")
-                                else SYSTEM))
+                                else (MIX_SYSTEM
+                                      if kind == "pain_pleasure" else SYSTEM)))
         except Exception as e:  # noqa
             self._json({"error": {"message": "bad messages",
                                   "detail": repr(e)}}, 400)
